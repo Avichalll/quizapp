@@ -1,4 +1,4 @@
-package com.example.quizapp.QuestionController;
+package com.example.quizapp.Controller;
 
 import java.util.List;
 
@@ -27,8 +27,6 @@ public class QnsController {
     @GetMapping("/AllQuestion")
     public List<Question> getMethodName() {
         return questionServiceImp.getAllQuestion();
-
     }
-    
 
 }

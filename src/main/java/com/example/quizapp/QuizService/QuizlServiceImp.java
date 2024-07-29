@@ -27,4 +27,19 @@ public class QuizlServiceImp implements QuizService {
         return quiz;
     }
 
+    @Override
+    public List<Quiz> getByCategory(String category) {
+        List<Question> questions = questionRepository.findByCategory(category);
+        List<Quiz> quizzes = questions.stream()
+                .map(question -> Quizmapper.mapQnstoQuiz(question))
+                .collect(Collectors.toList());
+        return quizzes;
+    }
+
+    // @Override
+    // public List<Quiz> createQuiz(String category, String title, String numQ) {
+    // // TODO Auto-generated method stub
+    // throw new UnsupportedOperationException("Unimplemented method 'createQuiz'");
+    // }
+
 }

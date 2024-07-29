@@ -16,11 +16,8 @@ public class Quizmapper {
         q.setOption1(question.getOption1());
         q.setOption2(question.getOption2());
         q.setOption3(question.getOption3());
-
         q.setOption4(question.getOption4());
-
         return q;
 
     }
-
 }

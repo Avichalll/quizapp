@@ -13,4 +13,8 @@ public interface QuizService {
 
     public List<Quiz> getAllQuiz();
 
+    public List<Quiz> getByCategory(String category);
+
+    // public List<Quiz> createQuiz(String category, String title, String numQ);
+
 }

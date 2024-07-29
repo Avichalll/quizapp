@@ -28,4 +28,12 @@ public class QuestionServiceImp implements QuestionService {
 
     }
 
+    @Override
+    public List<Question> getByCateogry(String category) {
+
+        List<Question> questions = questionRepository.findByCategory(category);
+        return questions;
+
+    }
+
 }

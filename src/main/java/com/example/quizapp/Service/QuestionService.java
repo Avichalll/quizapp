@@ -9,8 +9,14 @@ import com.example.quizapp.Model.Question;
 @Service
 public interface QuestionService {
 
+    void addQuestion(Question question);
+
     List<Question> getAllQuestion();
 
     List<Question> getByCateogry(String category);
+
+    List<Question> getByLimitCategory(String category, int limit);
+
+    public void UpdateQuestion(Integer id, Question updatedQuestion);
 
 }

@@ -24,7 +24,7 @@ public class QuizlServiceImp implements QuizService {
     public List<Quiz> getAllQuiz() {
         List<Question> questions = questionRepository.findAll();
         List<Quiz> quiz = questions.stream()
-                .map(question -> Quizmapper.mapQnstoQuiz(question))
+                .map(question -> quizmapper.mapQnstoQuiz(question))
                 .collect(Collectors.toList());
         return quiz;
     }
@@ -33,7 +33,7 @@ public class QuizlServiceImp implements QuizService {
     public List<Quiz> getByCategory(String category) {
         List<Question> questions = questionRepository.findByCategory(category);
         List<Quiz> quizzes = questions.stream()
-                .map(question -> Quizmapper.mapQnstoQuiz(question))
+                .map(question -> quizmapper.mapQnstoQuiz(question))
                 .collect(Collectors.toList());
         return quizzes;
     }
@@ -53,22 +53,43 @@ public class QuizlServiceImp implements QuizService {
         if (questions.isEmpty()) {
             throw new IllegalArgumentException("No valid questions found for the given responses");
         }
-
-        int score = 0;
-        for (Question question : questions) {
-            Response response = responses.stream()
-                    .filter(r -> r.getId().equals(question.getId()))
-
-                    .findFirst()
-                    .orElse(null);
-
-            if (response != null && response.getAnswerResponse() != null
-                    && response.getAnswerResponse().equals(question.getRightAnswer())) {
-                score++;
-            }
-        }
+        int score = responses.stream()
+                .filter(response -> {
+                    Question question = questions.stream()
+                            .filter(q -> q.getId().equals(response.getId()))
+                            .findFirst()
+                            .orElse(null);
+                    return question != null && response.getAnswerResponse() != null
+                            && response.getAnswerResponse().equals(question.getRightAnswer());
+                })
+                .mapToInt(response -> 1)
+                .sum();
 
         return score;
+
+        // int right = 0;
+        // int i = 0;
+        // for (Response response : responses) {
+        // if (response.getAnswerResponse().equals(((Question)
+        // questions).getRightAnswer())) {
+        // right++;
+
+        // }
+        // }
+
+        // int score = 0;
+        // for (Question question : questions) {
+        // Response response = responses.stream()
+        // .filter(r -> r.getId().equals(question.getId()))
+        // .findFirst()
+        // .orElse(null);
+        // if (response != null && response.getAnswerResponse() != null
+        // && response.getAnswerResponse().equals(question.getRightAnswer())) {
+        // score++;
+        // }
+        // }
+
+        // return right;
     }
 
     // @Override

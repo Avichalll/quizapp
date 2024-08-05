@@ -2,6 +2,8 @@ package com.example.quizapp.Controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,8 @@ import com.example.quizapp.Repository.QuestionRepository;
 @RestController
 @RequestMapping("/Quiz")
 public class QuizController {
+
+    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
 
     @Autowired
     public QuizlServiceImp quizlServiceImp;
@@ -37,11 +41,15 @@ public class QuizController {
     }
 
     @PostMapping("/Response")
-    public int postMethodName(@RequestBody List<Response> reponses) {
-
-        int ans = quizlServiceImp.getScore(reponses);
-        return ans;
-
+    public int postMethodName(@RequestBody List<Response> responses) {
+        try {
+            logger.info("Received responses: {}", responses);
+            int ans = quizlServiceImp.getScore(responses);
+            return ans;
+        } catch (Exception e) {
+            logger.error("Error processing responses", e);
+            throw e;
+        }
     }
 
 }

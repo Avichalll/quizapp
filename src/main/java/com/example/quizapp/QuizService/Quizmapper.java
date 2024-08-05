@@ -5,10 +5,18 @@ import org.springframework.stereotype.Service;
 import com.example.quizapp.Model.Question;
 import com.example.quizapp.QuizDoa.Quiz;
 
+import lombok.Data;
+import lombok.Getter;
+
+@Getter
+@Data
 @Service
 public class Quizmapper {
 
-    public static Quiz mapQnstoQuiz(Question question) {
+    public Quiz mapQnstoQuiz(Question question) {
+        if (question == null) {
+            throw new NullPointerException("Question is not Present");
+        }
 
         Quiz q = new Quiz();
         q.setId(question.getId());

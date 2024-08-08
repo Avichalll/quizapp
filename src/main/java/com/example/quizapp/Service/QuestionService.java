@@ -9,7 +9,7 @@ import com.example.quizapp.Model.Question;
 @Service
 public interface QuestionService {
 
-    void addQuestion(Question question);
+    void addQuestion(Question question3);
 
     List<Question> getAllQuestion();
 

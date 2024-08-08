@@ -22,9 +22,9 @@ public class QuestionServiceImp implements QuestionService {
     @Autowired
     public QuestionRepository questionRepository;
 
-    public void addQuestion(Question question) {
+    public void addQuestion(Question question3) {
 
-        questionRepository.save(question);
+        questionRepository.save(question3);
 
     }
 
@@ -32,6 +32,7 @@ public class QuestionServiceImp implements QuestionService {
     public List<Question> getAllQuestion() {
         logger.info("Fetching all the question form the repository");
         List<Question> questions = questionRepository.findAll();
+
         logger.info("Fetched {} questions", questions.size());
 
         return questions;
@@ -64,7 +65,6 @@ public class QuestionServiceImp implements QuestionService {
             question.setCategory(updatedQuestion.getCategory());
             question.setDifficultylevel(updatedQuestion.getDifficultylevel());
             question.setOption1(updatedQuestion.getOption1());
-
             questionRepository.save(question);
 
             logger.info("Updated question with ID {}", id);

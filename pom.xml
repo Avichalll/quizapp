@@ -6,12 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.2</version>
-		<repositories>
-			<repository>
-				<id>central</id>
-				<url>https://repo.maven.apache.org/maven2</url>
-			</repository>
-		</repositories>
+		
 		 <!-- lookup parent from repository -->
 
 		<relativePath/>

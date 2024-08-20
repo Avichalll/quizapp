@@ -1,39 +1,31 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout') {
+        stage('Compilation') {
             steps {
-                git 'https://github.com/Avichalll/quizapp.git'
+                sh './mvnw clean install -DskipTests'
             }
         }
-        stage('Build') {
-            steps {
-                sh './gradlew clean build' // Use 'mvn clean install' if using Maven
+
+        stage('Tests and Deployment') {
+            parallel {
+                stage('Running unit tests') {
+                    steps {
+                        sh './mvnw test -Punit'
+                    }
+                }
+                stage('Deployment') {
+                    steps {
+                        sshagent(['your-ssh-credentials-id']) {
+                            sh '''
+                            scp target/your-app.jar user@remote-server:/path/to/deploy/
+                            ssh user@remote-server 'nohup java -jar /path/to/deploy/your-app.jar > /dev/null 2>&1 &'
+                            '''
+                        }
+                    }
+                }
             }
-        }
-        stage('Test') {
-            steps {
-                sh './gradlew test' // Use 'mvn test' if using Maven
-            }
-        }
-        stage('Package') {
-            steps {
-                sh './gradlew bootJar' // Use 'mvn package' if using Maven
-            }
-        }
-        // stage('Deploy') {
-        //     steps {
-        //         // Add your deployment steps here, e.g., using SCP, SSH, Docker, etc.
-        //         sh 'scp build/libs/*.jar user@server:/path/to/deploy'
-        //     }
-        // }
-    }
-    post {
-        success {
-            echo 'Build and Deploy succeeded!'
-        }
-        failure {
-            echo 'Build or Deploy failed!'
         }
     }
 }

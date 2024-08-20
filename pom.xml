@@ -6,8 +6,19 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<repositories>
+			<repository>
+				<id>central</id>
+				<url>https://repo.maven.apache.org/maven2</url>
+			</repository>
+		</repositories>
+		 <!-- lookup parent from repository -->
+
+		<relativePath/>
+
+		 <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.example</groupId>
 	<artifactId>quizapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -63,7 +74,7 @@
 			
 			
 	</dependencies>
-	<repositories>
+	<!-- <repositories>
         <repository>
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2</url>
@@ -74,7 +85,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories> -->
 
 	<build>
 		<plugins>
